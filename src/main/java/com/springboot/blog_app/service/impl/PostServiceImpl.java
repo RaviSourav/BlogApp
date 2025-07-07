@@ -19,8 +19,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
+
     @Autowired
-    PostRepository postRepository;
+    private PostRepository postRepository;
 
     @Override
     public PostDto createPost(PostDto postDto) {
