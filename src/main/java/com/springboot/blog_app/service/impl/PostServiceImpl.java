@@ -75,6 +75,7 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(post);
     }
 
+//    To map Post object to PostDto object
     private PostDto mapToPostDto(Post post) {
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
@@ -84,6 +85,7 @@ public class PostServiceImpl implements PostService {
         return postDto;
     }
 
+//    To map PostDto object to Post object
     private Post mapToPost(PostDto postDto) {
         Post post = new Post();
         post.setTitle(postDto.getTitle());
