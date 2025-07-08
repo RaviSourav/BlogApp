@@ -3,6 +3,7 @@ package com.springboot.blog_app.entity;
 import com.springboot.blog_app.repository.PostRepository;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,9 @@ public class Post {
     private String description;
     @Column(nullable = false)
     private String content;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
     public Post(long id, String title, String description, String content) {
         this.id = id;
