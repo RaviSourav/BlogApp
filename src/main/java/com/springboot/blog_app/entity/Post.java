@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name = "title", nullable = false)
     private String title;
     @Column(nullable = false)
@@ -22,7 +22,7 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
-    public Post(long id, String title, String description, String content) {
+    public Post(Long id, String title, String description, String content) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -32,11 +32,11 @@ public class Post {
     public Post() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

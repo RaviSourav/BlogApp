@@ -9,5 +9,11 @@ import java.util.List;
 public interface CommentService {
     CommentDto createComment(CommentDto commentDto, Long postId);
 
-    List<CommentDto> findAll(Long postId);
+    List<CommentDto> findAllComments(Long postId);
+
+    CommentDto getCommentById(Long postId, Long commentId);
+
+    CommentDto updateComment(Long postId, Long commentId, CommentDto commentDto);
+
+    String deleteComment(Long postId, Long commentId);
 }
