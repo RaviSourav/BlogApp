@@ -8,6 +8,7 @@ import com.springboot.blog_app.payload.CommentDto;
 import com.springboot.blog_app.repository.CommentRepository;
 import com.springboot.blog_app.repository.PostRepository;
 import com.springboot.blog_app.service.CommentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public CommentDto createComment(CommentDto commentDto, Long postId) {
@@ -92,19 +96,35 @@ public class CommentServiceImpl implements CommentService {
     }
 
     private CommentDto mapToCommentDto(Comment comment) {
-        CommentDto commentDto = new CommentDto();
-        commentDto.setId(comment.getId());
-        commentDto.setName(comment.getName());
-        commentDto.setEmail(comment.getEmail());
-        commentDto.setBody(comment.getBody());
-        return commentDto;
+//        Using Core Java
+//        CommentDto commentDto = new CommentDto();
+//        commentDto.setId(comment.getId());
+//        commentDto.setName(comment.getName());
+//        commentDto.setEmail(comment.getEmail());
+//        commentDto.setBody(comment.getBody());
+//        return commentDto;
+
+//        Using ModelMapper
+//        CommentDto commentDto = modelMapper.map(comment, CommentDto.class);
+//        return commentDto;
+
+//        Using Inline variable
+        return modelMapper.map(comment, CommentDto.class);
     }
 
     private Comment mapToComment(CommentDto commentDto) {
-        Comment comment = new Comment();
-        comment.setName(commentDto.getName());
-        comment.setEmail(commentDto.getEmail());
-        comment.setBody(commentDto.getBody());
-        return comment;
+//        Using Core Java
+//        Comment comment = new Comment();
+//        comment.setName(commentDto.getName());
+//        comment.setEmail(commentDto.getEmail());
+//        comment.setBody(commentDto.getBody());
+//        return comment;
+
+//        Using ModelMapper
+//        Comment comment = modelMapper.map(commentDto, Comment.class);
+//        return comment;
+
+//        Using Inline Variable
+        return modelMapper.map(commentDto, Comment.class);
     }
 }

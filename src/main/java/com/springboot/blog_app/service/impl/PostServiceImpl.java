@@ -6,6 +6,7 @@ import com.springboot.blog_app.payload.PostDto;
 import com.springboot.blog_app.payload.PostResponse;
 import com.springboot.blog_app.repository.PostRepository;
 import com.springboot.blog_app.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public PostDto createPost(PostDto postDto) {
@@ -78,20 +82,36 @@ public class PostServiceImpl implements PostService {
 
 //    To map Post object to PostDto object
     private PostDto mapToPostDto(Post post) {
-        PostDto postDto = new PostDto();
-        postDto.setId(post.getId());
-        postDto.setTitle(post.getTitle());
-        postDto.setContent(post.getContent());
-        postDto.setDescription(post.getDescription());
-        return postDto;
+//        Using Core Java
+//        PostDto postDto = new PostDto();
+//        postDto.setId(post.getId());
+//        postDto.setTitle(post.getTitle());
+//        postDto.setContent(post.getContent());
+//        postDto.setDescription(post.getDescription());
+//        return postDto;
+
+//        Using ModelMapper
+//        PostDto postDto = modelMapper.map(post, PostDto.class);
+//        return postDto;
+
+//        Using Inline Variable
+        return modelMapper.map(post, PostDto.class);
     }
 
 //    To map PostDto object to Post object
     private Post mapToPost(PostDto postDto) {
-        Post post = new Post();
-        post.setTitle(postDto.getTitle());
-        post.setContent(postDto.getContent());
-        post.setDescription(postDto.getDescription());
-        return post;
+//        Using Core Java
+//        Post post = new Post();
+//        post.setTitle(postDto.getTitle());
+//        post.setContent(postDto.getContent());
+//        post.setDescription(postDto.getDescription());
+//        return post;
+
+//        Using ModelMapper
+//        Post post = modelMapper.map(postDto, Post.class);
+//        return post;
+
+//        Using Inline Variable
+        return modelMapper.map(postDto, Post.class);
     }
 }
