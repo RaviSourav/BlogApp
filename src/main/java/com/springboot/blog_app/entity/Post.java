@@ -64,4 +64,12 @@ public class Post {
         this.content = content;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
 }
