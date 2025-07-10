@@ -107,11 +107,11 @@ public class PostServiceImpl implements PostService {
 //        post.setDescription(postDto.getDescription());
 //        return post;
 
-//        Using ModelMapper
-//        Post post = modelMapper.map(postDto, Post.class);
-//        return post;
-
-//        Using Inline Variable
+////        Using ModelMapper
+////        Post post = modelMapper.map(postDto, Post.class);
+////        return post;
+//
+////        Using Inline Variable
         return modelMapper.map(postDto, Post.class);
     }
 }

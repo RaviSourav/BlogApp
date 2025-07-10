@@ -1,16 +1,32 @@
 package com.springboot.blog_app.payload;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import java.util.List;
+
 public class PostDto {
     private Long id;
-    private String title;
-    private String description;
-    private String content;
 
-    public PostDto(Long id, String title, String description, String content) {
+    // title should not be null  or empty
+    // title should have at least 2 characters
+    @NotEmpty
+    @Size(min = 2, message = "Post title should have at least 2 characters")
+    private String title;
+
+    @NotEmpty
+    @Size(min = 10, message = "Post Description should have at least 10 characters")
+    private String description;
+
+    @NotEmpty
+    private String content;
+    private List<CommentDto> comments;
+
+    public PostDto(Long id, String title, String description, String content, List<CommentDto> comments) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.content = content;
+        this.comments = comments;
     }
 
     public PostDto() {
@@ -47,6 +63,14 @@ public class PostDto {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<CommentDto> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDto> comments) {
+        this.comments = comments;
     }
 
 }
