@@ -25,4 +25,4 @@ Questions:
 2. Different Authentication Method given in above screenshot as we implemented only DAO Authentication method?
 3. Learn the Debug and especially with Security?
 4. 2025-07-11T00:08:31.951+05:30  WARN 87749 --- [springboot-blog-rest-api] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning?
-5. 
+5. implement custom annotation for authorization of users.
