@@ -1,18 +1,7 @@
-Spring Boot Auto Configuration for Spring Security
-Spring Boot automatically configures the following features for Spring Security:
+<img width="587" height="336" alt="image" src="https://github.com/user-attachments/assets/65fa626c-86ff-4d8a-907c-267e2cb0e02e" />
 
-spring-boot-starter-security starter that aggregates Spring Security-related dependencies together.
-Enables Spring Security’s default configuration, which:
-Creates a servlet Filter as a bean named springSecurityFilterChain.
-Provides a default login form.
-Creates a default user with:
-Username: user
-A randomly generated password that is logged to the console (e.g., 8e557245-73e2-4286-969a-ff57fe326336).
-Provides properties to customize the default user’s username and password.
-Protects password storage with the BCrypt algorithm.
-Includes a default logout feature.
-Enables CSRF attack prevention by default.
-If Spring Security is on the classpath, Spring Boot automatically secures all HTTP endpoints with basic authentication.
+<br/><br/><br/><br/><br/>
+
 
 1. Spring Security Working Mechanism:
 
