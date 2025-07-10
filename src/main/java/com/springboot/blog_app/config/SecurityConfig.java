@@ -4,7 +4,7 @@ package com.springboot.blog_app.config;
 //import com.springboot.blob.security.JwtAuthenticationFilter;
 //import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 //import io.swagger.v3.oas.annotations.security.SecurityScheme;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -34,8 +34,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 //)
 public class SecurityConfig {
 
-//    @Autowired
-//    private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 //
 //    @Autowired
 //    private JwtAuthenticationEntryPoint authenticationEntryPoint;
@@ -56,11 +56,11 @@ public class SecurityConfig {
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-////
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-//        return configuration.getAuthenticationManager();
-//    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -92,21 +92,22 @@ public class SecurityConfig {
         return http.build();
     }
 
+//    This is no more required as we are fetching the user from DB using UserDetails class
     //This will simply check if username and password is correct and show the error result -> Access Denied
     // otherwise it will throw Unauthorize error for incorrect username or password
-    @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails ravi = User.builder()
-                .username("ravi")
-                .password(passwordEncoder().encode("ravi"))
-                .roles("USER")
-                .build();
-
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(ravi, admin);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(){
+//        UserDetails ravi = User.builder()
+//                .username("ravi")
+//                .password(passwordEncoder().encode("ravi"))
+//                .roles("USER")
+//                .build();
+//
+//        UserDetails admin = User.builder()
+//                .username("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN")
+//                .build();
+//        return new InMemoryUserDetailsManager(ravi, admin);
+//    }
 }
