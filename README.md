@@ -12,3 +12,11 @@
 2. How Database Authentication Works:
    
 <img width="1208" height="632" alt="image" src="https://github.com/user-attachments/assets/3c3d8dc8-7bf8-4180-8e0c-a0c504469959" />
+
+<br/><br/><br/><br/><br/>
+
+Questions:
+1. Lazy and Eager?
+2. Different Authentication Method given in above screenshot as we implemented only DAO Authentication method?
+3. Learn the Debug and especially with Security?
+4. 
