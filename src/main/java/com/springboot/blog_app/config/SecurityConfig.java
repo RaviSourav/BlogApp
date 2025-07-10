@@ -14,9 +14,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -49,10 +52,10 @@ public class SecurityConfig {
 //        this.authenticationFilter = authenticationFilter;
 //    }
 //
-//    @Bean
-//    public static PasswordEncoder passwordEncoder(){
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public static PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 ////
 //    @Bean
 //    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -62,20 +65,22 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests((authorize) ->
-                        authorize.anyRequest().authenticated()).httpBasic(Customizer.withDefaults());
-
-
+//        This is for Basic Authenticaion
 //        http.csrf(csrf -> csrf.disable())
 //                .authorizeHttpRequests((authorize) ->
-//                        authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-////                                .requestMatchers(HttpMethod.POST, "/api/categories/**").permitAll()
-//                                .requestMatchers("/api/auth/**").permitAll()
-//                                .requestMatchers("/swagger-ui/**").permitAll()
-//                                .requestMatchers("/v3/api-docs/**").permitAll()
-//                                .anyRequest().authenticated()
-//
+//                        authorize.anyRequest().authenticated()).httpBasic(Customizer.withDefaults());
+
+
+        http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests((authorize) ->
+                        authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/categories/**").permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
+                                .anyRequest().authenticated()
+                ).httpBasic(Customizer.withDefaults());
+
 //                ).exceptionHandling( exception -> exception
 //                        .authenticationEntryPoint(authenticationEntryPoint)
 //                ).sessionManagement( session -> session
@@ -87,19 +92,21 @@ public class SecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails ravi = User.builder()
-//                .username("ravi")
-//                .password(passwordEncoder().encode("ravi"))
-//                .roles("USER")
-//                .build();
-//
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password(passwordEncoder().encode("admin"))
-//                .roles("ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(ravi, admin);
-//    }
+    //This will simply check if username and password is correct and show the error result -> Access Denied
+    // otherwise it will throw Unauthorize error for incorrect username or password
+    @Bean
+    public UserDetailsService userDetailsService(){
+        UserDetails ravi = User.builder()
+                .username("ravi")
+                .password(passwordEncoder().encode("ravi"))
+                .roles("USER")
+                .build();
+
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(ravi, admin);
+    }
 }
