@@ -24,7 +24,8 @@ import java.util.Set;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
+//    Field inection is not necessary as constructor injection is being used.
+//    @Autowired
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
