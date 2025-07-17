@@ -7,7 +7,7 @@ import com.springboot.blog_app.payload.LoginDto;
 import com.springboot.blog_app.payload.RegisterDto;
 import com.springboot.blog_app.repository.RoleRepository;
 import com.springboot.blog_app.repository.UserRepository;
-//import com.springboot.blog_app.security.JwtTokenProvider;
+import com.springboot.blog_app.security.JwtTokenProvider;
 import com.springboot.blog_app.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,18 +30,19 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
-//    private JwtTokenProvider jwtTokenProvider;
+    private JwtTokenProvider jwtTokenProvider;
 
 
     public AuthServiceImpl(AuthenticationManager authenticationManager,
                            UserRepository userRepository,
                            RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
-//        this.jwtTokenProvider = jwtTokenProvider;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Override
@@ -51,8 +52,8 @@ public class AuthServiceImpl implements AuthService {
                 loginDto.getUsernameOrEmail(), loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return "User Logged-in Successfully";
-//        return jwtTokenProvider.generateToken(authentication);
+//        return "User Logged-in Successfully";
+        return jwtTokenProvider.generateToken(authentication);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.springboot.blog_app.config;
 
-//import com.springboot.blob.security.JwtAuthenticationEntryPoint;
-//import com.springboot.blob.security.JwtAuthenticationFilter;
+import com.springboot.blog_app.security.JwtAuthenticationEntryPoint;
+import com.springboot.blog_app.security.JwtAuthenticationFilter;
 //import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 //import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +37,11 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
 //
-//    @Autowired
-//    private JwtAuthenticationEntryPoint authenticationEntryPoint;
-////
-//    @Autowired
-//    private JwtAuthenticationFilter authenticationFilter;
+    @Autowired
+    private JwtAuthenticationEntryPoint authenticationEntryPoint;
+//
+    @Autowired
+    private JwtAuthenticationFilter authenticationFilter;
 
 //    not using constructor injection
 //    public SecurityConfig(UserDetailsService userDetailsService,
@@ -71,6 +71,17 @@ public class SecurityConfig {
 //                        authorize.anyRequest().authenticated()).httpBasic(Customizer.withDefaults());
 
 
+//        http.csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests((authorize) ->
+//                        authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+//                                .requestMatchers(HttpMethod.POST, "/api/categories/**").permitAll()
+//                                .requestMatchers("/api/auth/**").permitAll()
+//                                .requestMatchers("/swagger-ui/**").permitAll()
+//                                .requestMatchers("/v3/api-docs/**").permitAll()
+//                                .anyRequest().authenticated()
+//                ).httpBasic(Customizer.withDefaults());
+
+
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
@@ -79,15 +90,13 @@ public class SecurityConfig {
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated()
-                ).httpBasic(Customizer.withDefaults());
-
-//                ).exceptionHandling( exception -> exception
-//                        .authenticationEntryPoint(authenticationEntryPoint)
-//                ).sessionManagement( session -> session
-//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                );
+                ).exceptionHandling( exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                ).sessionManagement( session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
 //
-//        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
